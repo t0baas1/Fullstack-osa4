@@ -1,0 +1,30 @@
+{
+  "name": "blogbackend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t0baas1/Fullstack-osa4.git"
+  },
+  "author": "Topi Kanninen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/t0baas1/Fullstack-osa4/issues"
+  },
+  "homepage": "https://github.com/t0baas1/Fullstack-osa4#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
