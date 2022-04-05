@@ -1,10 +1,11 @@
 const blogsRouter = require('express').Router()
+const { use } = require('bcrypt/promises')
 const Blog = require('../models/blog')
+const User = require('../models/user')
+const { usersInDb } = require('../tests/test_helper')
 
 blogsRouter.get('/', async (request, response) => {
-    const blogs = await Blog
-        .find({}).populate('user', {username: 1, name: 1})
-    
+    const blogs = await Blog.find({}).populate('user')
     response.json(blogs)
 })
 
@@ -20,21 +21,24 @@ blogsRouter.get('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
-blogsRouter.post('/', (request, response, next) => {
+blogsRouter.post('/', async (request, response, next) => {
     const body = request.body
+
+    const user = await User.findOne()
   
     const blog = new Blog({
       title: body.title,
       author: body.author,
-      url: body.author,
+      url: body.url,
       likes: body.likes,
+      user: user._id,
     })
   
-    blog.save()
-      .then(savedBlog => {
-        response.json(savedBlog)
-      })
-      .catch(error => next(error))
+    const savedBlog = await blog.save()
+    user.blogs = user.blogs.concat(savedBlog._id)
+    await user.save()
+
+    response.json(savedBlog)
 })
   
 blogsRouter.delete('/:id', async (request, response) => {
