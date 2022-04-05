@@ -39,7 +39,7 @@ test('a valid blog can be added ', async () => {
   )
 })
 
-test('delettion of a blog', async () => {
+test('deletion of a blog', async () => {
   const blogsAtStart = await helper.blogsInDb()
   const blogToDelete = blogsAtStart[0]
 
@@ -53,9 +53,9 @@ test('delettion of a blog', async () => {
     blogsAtStart.length - 1
   )
 
-  const contents = blogsAtEnd.map(r => r.title)
+  const contents = blogsAtEnd.map(r => r.id)
 
-  expect(contents).not.toContain(blogToDelete.title)
+  expect(contents).not.toContain(blogToDelete.id)
 })
 
 afterAll(() => {
